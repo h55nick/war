@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>War</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/vader/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class='container'>
+
+<%= render :partial => 'layouts/nav' %>
+<div class='clear'></div>
+
+
+  <div class='columns large-7 small-centered'>
+      <%= yield %>
+    </div>
+
+
+<div class='clear'></div>
+
+
+<footer class="row">
+      <div class="large-12 columns">
+        <hr />
+        <div class="row">
+          <div class="large-6 columns">
+            <p>Made with care by <span class='sig'>Nick Blanchet</span></p>
+          </div>
+          <div class="large-6 columns">
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>

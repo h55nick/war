@@ -1,0 +1,16 @@
+.grid_6
+  %fieldset
+    %legend= "Create User"
+    = form_for @user do |f|
+      = f.label :name
+      = f.text_field :name, :autofocus => true
+      %br
+      = f.label :image
+      = f.text_field :image
+      %br
+      = f.label :password
+      = f.password_field :password
+      %br
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation
+      = f.submit(nil, :class => 'button radius')
