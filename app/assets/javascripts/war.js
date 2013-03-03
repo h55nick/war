@@ -2,84 +2,131 @@
 /*could pass them back and forth a million times- not worth it*/
 phand =[];
 chand =[];
+pile =[];
+outcomes =[0,0,0,0];//Modeling
 
+var timer;
 
 $(function(){
   dealfulldeck();/* Code near Bottom ctrl f -> "makedeck" !*/
   $('#warbtn').click(war_me_bro);
-
-
+  $('body').keydown(checkenter);//Allows enter to regestered for war
+  $('#autoplaybtn').click(autoplay);
+  $('#stoptimer').click(nt);
 });
 
+
+
+
 function check_end(){
-  if (phand.length >= 51) {//Player wins
-    alert("Player Wins");
-  }else if(chand.length >= 51){//Computer wins
-    alert("Computer WIns");
+  if(phand.length + chand.length + pile.length != 52){
+    console.log("Error #55");
+  }
+  if (chand.length == 0) {//Player wins
+    gameover(true);
+  }else if(phand.length ==0){//Computer wins
+      gameover(false);
   }else{
     //Don't really need this means game continues!
   };
 }
 
+
+
 function war_me_bro(){
   var b_c = [];
   /*alert("War me bro");*/
   b_c = [phand.shift(),chand.shift()]; /*battle cards */
-  /*b_c = battle cards*/
-  // b_c[0] => players hand
-  // b_c[1] => comps hand
-  // Remember that our syntax means that:
-  // b_c[0][0] is the number value of the card for the players hand
-  // b_c[1][1] would be the suit of the computers hand (not that it matters!)
-  // Feel free to save these into variables if it makes it easier
+
   $('.battleholder .card0').text(b_c[0]);
   $('.battleholder .card1').text(b_c[1]);
 
   if(b_c[0][0] > b_c[1][0]){//player wins
     phand.push(b_c[0],b_c[1]);//player wins so add to players hand
     $('#battleoutcome').text("You won this one!");
+    outcomes[0]++;
+    out = true;
   }
   else if(b_c[0][0] < b_c[1][0]){//Comp wins
     chand.push(b_c[0],b_c[1]);//comp wins so add to comp hand
     $('#battleoutcome').text("Javascript won. Again.");
+    outcomes[1]++;
+    out = false;
   }
   else{//TIE AHHHH
-    //decided to split until I get AJAX working
-    phand.push(b_c[0]); //player gets its hand back
-    chand.push(b_c[1]); //comp gets its hand back
+    tie(b_c);
+    outcomes[2]++;
+    out = "Error"
   };
 
-
   check_end();//Checking to see if the game is over.
-
+  return out;
 }//End WMB
 
 
+function tie(tiecards) {
+  phand = _.shuffle(phand);
+  chand = _.shuffle(chand);
+  //alert("Tie Baby");
+  pile.push(tiecards[0],tiecards[1]);
+  pile.push(phand.shift(),chand.shift(),phand.shift(),chand.shift()); //Add two discards to pile
 
+  check_end();//Need to check if the players ran out of cards on the pull (auto loss according to wiki)
 
+  outcome = war_me_bro();//Battle the next one (two battle cards get added auto unless another war. //added to pile.)
+  if(outcome){
+    phand = phand.concat(pile);
+    pile=[];
+  }else if(!outcome){
+    chand = chand.concat(pile);
+    pile =[];
+  }else{
+    alert("Error #3erg4");
+  }
 
-
-function dealfulldeck(){
-  var  deck = makedeck();
-
-  deck = _.shuffle(deck);/*Suffle the deck*/
-  /*Needed underscores _.shuffle (make sure to include library!)*/
-
-    /*Reset both hands just in case*/
-  phand , chand = [];
-
-  /*Now deal. Not exactly what we talked about in class but it works*/
-  /*Note we only do it 26 (0->25) times because each time we deal 2 cards*/
-  for(var k=0; k<= 25;k++){
-    phand.push(deck.pop());
-    chand.push(deck.pop());
-  }/*choose this because couldn't find js documentation that supported Ruby syntax that we discussed*/
-
-
-/*Hand has been delt*/
 }
 
 
+
+/*  BASIC FUNC    ####### WORKING ########*/
+function checkenter(){
+var k;
+  k = event.keyCode;
+  if(k == 13){
+    war_me_bro();
+    return true;
+  }
+}
+function nt(){
+   clearInterval(timer);
+   $("#stoptimer").toggleClass("hide");
+}
+function autoplay(){
+  nt();
+  $("#stoptimer").toggleClass("hide");
+  timer = setInterval(war_me_bro, 1);
+}
+
+function gameover(outcome){
+  /*alert(outcomes);*/
+  dealfulldeck();
+  outcomes[3]++;
+  storegame(outcome);
+  nt();
+}
+
+
+function dealfulldeck(){
+  var deck = _.shuffle(makedeck());/*Suffle the deck*/
+    /*Reset just in case*/
+    phand , chand, pile = [];
+    outcomes =[0,0,0,0];
+    //Divy the cards
+    phand = deck.slice(0,26);
+    chand = deck.slice(26,52);
+/*Hand has been delt*/
+return true;
+}
 
 /* This function makes the deck*/
 function makedeck(){
