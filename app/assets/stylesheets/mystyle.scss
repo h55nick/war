@@ -1,7 +1,167 @@
+@import url(http://fonts.googleapis.com/css?family=Audiowide);
+@import url(http://fonts.googleapis.com/css?family=Fenix);
+/*POOR MANS RESET*/
+html, body {padding: 0; margin: 0;}
+html {font-size: 1em;}
+body {font-size: 100%;}
+a img, :link img, :visited img {border: 0;}
 div{
-  border: 1px red dotted;
+  /*border: 1px red dotted;*/
 }
 
-#gamespeed{
-  height: 100px;
+#header{
+  font-family: 'Audiowide', cursive;
+  font-size: 1.3em;
+}
+body{
+  /*background: url(card_club.png);*/
+  background: #111;
+}
+.nav{
+  margin: 20px;
+  margin-top: 0px;
+  padding-top: 10px;
+}
+.container{
+  background: rgba(255,255,255,.7);
+  margin-top: 0;
+  box-shadow: 0 0 50px #666;
+}
+.inline{
+  display: inline-block;
+}
+.floatright{
+  float: right;
+}
+.floatleft{
+  float: left;
+}
+.center{
+  margin: 0 auto;
+  min-width: 1px;
+}
+.clearpad{
+  width: 1px;
+  height: 1px;
+}
+footer{
+  margin: 20px;
+  padding-bottom: 10px;
+}
+.centermaster{
+  width: 500px;
+  margin: auto;
+}
+
+.telltale{
+  padding-top: 30px;
+  margin-left: 40%;
+}
+
+#splash{
+  font-size: 30px;
+  padding: 30px;
+}
+span.java{
+  color: #B0112D;
+}
+p.about{
+  font-size: 20px;
+}
+.login{
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+  background: #fff;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 2px green solid;
+  background: rgba(0,0,0,.2);
+}
+.login:hover{
+  background: rgba(0,0,0,.3);
+}
+#battleoutcome{
+  margin-left: 20%;
+  min-width: 1px;
+  width: 230px;
+  font-family: 'Fenix', serif;
+  font-size: 20px;
+  font-style: bold;
+  padding-bottom: 10px;
+
+}
+
+#autoplaybtn{
+  width: 110px;
+  margin: 20px;
+  border: 2px solid green;
+  border-radius: 5px;
+  text-align: center;
+  background: rgba(0,0,0,.2);
+  padding: 10px;
+}
+#autoplaybtn:hover{
+    background: rgba(0,0,0,.5)
+}
+
+#warbtn{
+  margin: 20px;
+  border: 2px solid green;
+  border-radius: 3px;
+  padding: 10px;
+  background: rgba(0,0,0,.2);
+  margin-left: 130px;
+}
+#warbtn:hover{
+  background: rgba(0,0,0,.5)
+  }
+
+/*----------------CARD FORMATING-------------------*/
+.card1s,.card2s{
+  width: 55px;
+  height: 60px;
+  margin: auto;
+background-repeat:no-repeat;
+background-size:100% 100%;
+-webkit-background-origin:content-box; /* Safari */
+background-origin:content-box;
+}
+.card2n,.card1n{
+  padding-left: 15px;
+  padding-bottom: 15px;
+  padding-top: 5px;
+}
+
+.card{
+  font-size: 30px;
+  border-radius: 4px;
+  border: 2px solid black;
+  height: 200px;
+  width: 130px;
+  background-image: url(TheCardBackWeb.jpg);
+  background-size: 100% 100%;
+  box-shadow: 2px 2px 20px #111;
+
+}
+.card.one{
+  margin-left: 25%;
+}
+.card.two{
+  margin-right: 25%;
+}
+/*----------------------  IMPORT ALL IMAGES -----------------------*/
+.hide{
+  display: none;
+  background: url(card_diamond.png);
+}
+.c1{
+    background: url(card_club.png);
+}
+.c2{
+    background: url(card_heart.png);
+}
+.c3{
+    background: url(card_spade.png);
 }

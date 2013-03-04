@@ -1,21 +1,27 @@
-.oppbox
-  Computer
-#warbtn
-  War!
+#warbtn.center.inline
+  War
+#battleoutcome.inline
+  Prepare for Battle
 .battleholder
-  .card0
-    Card0
-  .card1
-    Card1
-.deckimage
-  Picture of Deck
-#battleoutcome
-  Computer/Human Wins
-#autoplaybtn
+  .floatleft.card.one
+    .card1n
+    .card1s
+  .floatright.card.two
+    .card2n
+    .card2s
+  .clear
+#autoplaybtn.floatright
   Autoplay!
-#stoptimer.hide
-  Stop!
-
+-logintext = "You are logged in as" + @auth.name if is_auth
+-loggedout= "Please " +link_to("Login",login_path,:class=>"login" ) +" to save your score."
+.telltale
+  !=is_auth ? logintext : loggedout
+.clearpad= ""
 .hide
   =form_tag()
-  #id=@auth.id
+  #id=@auth.id if is_auth
+  .c1
+  .c2
+  .c3
+
+

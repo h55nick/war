@@ -15,7 +15,6 @@ function storegame(wl){
     return false
 }
 
-
 function display_end_game_banner(output){
-  alert("Saved!"+output)
+  alert("Saved!");
 }

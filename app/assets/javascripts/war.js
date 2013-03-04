@@ -15,16 +15,17 @@ $(function(){
   $('#stoptimer').click(nt);
 });
 
-
-
-
 function check_end(){
   if(phand.length + chand.length + pile.length != 52){
     console.log("Error #55");
   }
   if (chand.length == 0) {//Player wins
+    alert("You have won!");
+    $('#battleoutcome').text("You won the war!");
     gameover(true);
   }else if(phand.length ==0){//Computer wins
+      alert("You have won!");
+      $('#battleoutcome').text("You have lost the war!");
       gameover(false);
   }else{
     //Don't really need this means game continues!
@@ -32,18 +33,16 @@ function check_end(){
 }
 
 
-
 function war_me_bro(){
+  hideholder();
   var b_c = [];
   /*alert("War me bro");*/
   b_c = [phand.shift(),chand.shift()]; /*battle cards */
-
-  $('.battleholder .card0').text(b_c[0]);
-  $('.battleholder .card1').text(b_c[1]);
+  changeviewcards(b_c);//Update view
 
   if(b_c[0][0] > b_c[1][0]){//player wins
     phand.push(b_c[0],b_c[1]);//player wins so add to players hand
-    $('#battleoutcome').text("You won this one!");
+    $('#battleoutcome').text("You won this battle but there is another!!");
     outcomes[0]++;
     out = true;
   }
@@ -69,7 +68,7 @@ function tie(tiecards) {
   chand = _.shuffle(chand);
   //alert("Tie Baby");
   pile.push(tiecards[0],tiecards[1]);
-  pile.push(phand.shift(),chand.shift(),phand.shift(),chand.shift()); //Add two discards to pile
+  pile.push(phand.shift(),chand.shift()); //Add two discards to pile
 
   check_end();//Need to check if the players ran out of cards on the pull (auto loss according to wiki)
 
@@ -87,6 +86,57 @@ function tie(tiecards) {
 }
 
 
+/* -------------Push TO FRONT END-------------------------*/
+function hideholder(){
+  $('.card').css("background","#FFF"); return true;
+}
+function showholder(){
+    $('.card').css("background-image","url(assets/TheCardBackWeb.jpg");
+}
+function changeviewcards(cards){
+
+  $('.battleholder .card1n').text(getfacecardletter(cards[0][0]));
+  $('.battleholder .card2n').text(getfacecardletter(cards[1][0]));
+  $('.battleholder .card1s').css("background-image","url(assets/"+getsuitimage(cards[0][1])+")");
+  $('.battleholder .card2s').css("background-image","url(assets/"+getsuitimage(cards[1][1])+")");
+}
+
+function getsuitimage(suit){
+  if(suit == "H"){
+    src= "card_heart.png";
+  }else if(suit == "C"){
+    src= "card_club.png";
+  }else if (suit=="D"){
+    src= "card_diamond.png";
+  }else if(suit=="S"){
+    src= "card_spade.png";
+  }else{
+    src= "Error with suit SRC";
+  }
+  return src;
+}
+function getfacecardletter(cardnumber){
+  var outvalue;
+  switch(cardnumber){
+     case 11:
+        outvalue = "J";
+        break;
+    case 12:
+        outvalue = "Q";
+        break;
+    case 13:
+      outvalue = "K";
+    break;
+    case 14:
+      outvalue = "A";
+      break;
+    default:
+      outvalue = cardnumber
+    }
+return outvalue;
+}
+
+
 
 /*  BASIC FUNC    ####### WORKING ########*/
 function checkenter(){
@@ -99,11 +149,12 @@ var k;
 }
 function nt(){
    clearInterval(timer);
-   $("#stoptimer").toggleClass("hide");
+   $("#stoptimer").removeClass("hide");
 }
 function autoplay(){
   nt();
-  $("#stoptimer").toggleClass("hide");
+  war_me_bro();
+  $("#stoptimer").addClass("hide");
   timer = setInterval(war_me_bro, 1);
 }
 
@@ -132,7 +183,7 @@ return true;
 function makedeck(){
   var suits = ["C","D","H","S"];//define 4 suits
   var deck =[];//empty deck
-  for(var c = 1; c <=13; c++){/*ALL 13 values (view helper will show 10-13 as [j,q,k,1] */
+  for(var c = 2; c <=14; c++){/*ALL 13 values (view helper will show 10-13 as [j,q,k,1] */
     for(var s = 0; s <=3;s++){/*Now we need to add suits, this will go to second*/
       deck.push([c,suits[s]]); /*push the array of the value and the suit corrisponding to which number we are one*/
     }
